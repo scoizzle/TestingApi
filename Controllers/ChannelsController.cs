@@ -23,9 +23,9 @@ namespace TestingApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> GetChannels()
         {
-            var dictionary = await _context.Messages.ToDictionaryAsync(msg => msg.Channel);
-
-            return dictionary.Keys;
+            var list = await _context.Messages.Select(msg => msg.Channel).ToListAsync();
+            
+            return Ok(list.Distinct());
         }
     }
 }
