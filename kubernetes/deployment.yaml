@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testingapi
+  labels:
+    app: testingapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testingapi
+  template:
+    metadata:
+      labels:
+        app: testingapi
+    spec:
+      containers:
+        - name: testingapi
+          image: scoizzle/testingapi:latest
+          ports:
+            - containerPort: 80
