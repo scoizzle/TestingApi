@@ -16,9 +16,9 @@ kind: Deployment
 metadata:
   name: testing-api
   labels:
-    app: rtesting-api
+    app: testing-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: testing-api
@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
         - name: resume
-          image: scoizzle/testingapi:latest
+          image: scoizzle/testingapi:1.0.1
           ports:
             - containerPort: 80
