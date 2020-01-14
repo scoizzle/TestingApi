@@ -18,7 +18,7 @@ namespace TestingApi.Controllers
             _message_context = messageContext;
         }
 
-        // GET: api/Channels
+        // GET: Channels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> GetChannels()
         {
