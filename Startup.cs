@@ -26,11 +26,26 @@ namespace TestingApi
 
         public IConfiguration Configuration { get; }
 
+        const string crossOriginPolicyName = "AllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MessageContext>(opt =>
                opt.UseInMemoryDatabase("Messages"));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(crossOriginPolicyName,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost",
+                                        "http://www.scotmurphy.com",
+                                        "http://api.scotmurphy.com")
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod();;
+                });
+            });
 
             services.AddControllers();
         }
@@ -42,12 +57,10 @@ namespace TestingApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // app.UseHttpsRedirection();
+            
+            app.UseCors(crossOriginPolicyName); 
 
             app.UseRouting();
-
-            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
